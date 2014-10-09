@@ -7,7 +7,11 @@ var map = require('map-stream');
  */
 module.exports = function(spec, callback) {
   return map(function(file, done) {
-    file.path = pathmap(file.path, spec, callback);
+    file.path = pathmap(winpath(file.path), spec, callback);
     done(null, file);
   });
 };
+
+function winpath(filepath) {
+  return filepath.replace(/\\/g, '/');
+}
